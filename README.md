@@ -126,15 +126,22 @@ python requests_api.py
 bash
 docker exec -it flask-main-app-1 python requests_api.py
 Структура проекта
-text
-.
+
 ├── Dockerfile
+
 ├── docker-compose.yml
+
 ├── requirements.txt
+
 ├── server.py          # точка входа, инициализация приложения
+
 ├── models.py          # модели SQLAlchemy и Pydantic
+
 ├── views.py           # класс AdView (CRUD)
+
 ├── routes.py          # маршруты (Blueprint)
+
 ├── requests_api.py    # тестовый клиент
+
 └── README.md
 Автор: Валерия
