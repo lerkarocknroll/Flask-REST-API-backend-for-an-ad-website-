@@ -1,7 +1,7 @@
 import os
 from typing import Union
 from flask import Flask, jsonify
-from models import HTTPError  # вынесли HTTPError в models (см. ниже)
+from models import HTTPError
 from routes import bp
 
 
