@@ -1,37 +1,24 @@
+import os
 from typing import Union
-import pydantic
 from flask import Flask, jsonify
-
-app = Flask("app")
-
-
-class HTTPError(Exception):
-    def __init__(self, status_code: int, message: Union[str, list, dict]):
-        self.status_code = status_code
-        self.message = message
+from models import HTTPError  # вынесли HTTPError в models (см. ниже)
+from routes import bp
 
 
-@app.errorhandler(HTTPError)
-def handle_invalid_usage(error):
-    response = jsonify({'message': error.message})
-    response.status_code = error.status_code
-    return response
+def create_app():
+    app = Flask(__name__)
+    app.register_blueprint(bp)
+
+    @app.errorhandler(HTTPError)
+    def handle_http_error(error):
+        response = jsonify({'message': error.message})
+        response.status_code = error.status_code
+        return response
+
+    return app
 
 
-class CreateAdModel(pydantic.BaseModel):
-    title: str
-    description: str
-    owner: str
+app = create_app()
 
-    @pydantic.validator("title")
-    def min_max_length(cls, value: str):
-        if 1 > len(value) > 50:
-            raise ValueError('Title should be from 1 to 50 characters')
-        return value
-
-
-def validate(unvalidated_data: dict, validation_model):
-    try:
-        return validation_model(**unvalidated_data).dict()
-    except pydantic.ValidationError as er:
-        raise HTTPError(400, er.errors())
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=8000, debug=True)
