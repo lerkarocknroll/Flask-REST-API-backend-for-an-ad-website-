@@ -1,5 +1,5 @@
-Flask API для объявлений
-REST API на Flask. Работа с объявлениями: создание, чтение, обновление, удаление.
+# Flask API для объявлений
+## REST API на Flask. Работа с объявлениями: создание, чтение, обновление, удаление.
 Валидация – Pydantic, база данных – PostgreSQL, окружение – Docker.
 
 Технологии
@@ -120,12 +120,17 @@ json
 Запуск:
 
 bash
+
 python requests_api.py
+
 Или внутри контейнера:
 
 bash
+
 docker exec -it flask-main-app-1 python requests_api.py
-Структура проекта
+
+
+## Структура проекта
 
 ├── Dockerfile
 
@@ -144,4 +149,6 @@ docker exec -it flask-main-app-1 python requests_api.py
 ├── requests_api.py    # тестовый клиент
 
 └── README.md
-Автор: Валерия
+
+
+## Автор: Валерия
